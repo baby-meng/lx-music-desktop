@@ -93,6 +93,7 @@ const linuxOptions = {
         Encoding: 'UTF-8',
         MimeType: 'x-scheme-handler/lxmusic',
         StartupNotify: 'false',
+        StartupWMClass: 'lx-music-desktop',
       },
     },
   },

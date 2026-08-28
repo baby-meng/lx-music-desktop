@@ -5,7 +5,7 @@ import { URL_SCHEME_RXP } from '@common/constants'
 import { getProxy, getTheme, initHotKey, initSetting, parseEnvParams } from './utils'
 import { navigationUrlWhiteList } from '@common/config'
 import defaultSetting from '@common/defaultSetting'
-import { isExistWindow as isExistMainWindow, showWindow as showMainWindow } from './modules/winMain'
+import { isExistWindow as isExistMainWindow, showWindow as showMainWindow, closeWindow } from './modules/winMain'
 import { createAppEvent, createDislikeEvent, createListEvent } from '@main/event'
 import { isMac, log } from '@common/utils'
 import createWorkers from './worker'
@@ -331,5 +331,12 @@ export const initAppSetting = async() => {
 
 export const quitApp = () => {
   global.lx.isSkipTrayQuit = true
+  
+  // 先关闭主窗口，确保窗口关闭事件被正确处理
+  if (isExistMainWindow()) {
+    closeWindow()
+  }
+  
+  // 强制退出应用
   app.quit()
 }
